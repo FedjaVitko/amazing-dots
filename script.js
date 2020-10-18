@@ -1,6 +1,5 @@
 const canvas = document.getElementById('canvas1');
-const ctx = canvas.getContext('2d');
-canvas.width = window.innerWidth;
+const ctx = canvas.getContext('2d'); canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
 const NUMBER_OF_PARTICLES = 4000;
@@ -66,6 +65,7 @@ const createParticle = (initialX, initialY) => {
                 red -= COLOR_SPEED;
                 green -= COLOR_SPEED;
                 blue -= COLOR_SPEED;
+
                 if (size > baseSize) {
                     size -= SIZE_SPEED * 0.2;
                 }
