@@ -42,6 +42,7 @@ const createParticle = (initialX, initialY) => {
     let blue = 255;
     let density = (Math.random() * 30) + 1;
     let triggered = false;
+    let minColorIntensity = (Math.random() * 255) + 1;
     
     return {
         draw() {
@@ -62,7 +63,9 @@ const createParticle = (initialX, initialY) => {
             const speedX = forceDirectionX * force;
             const speedY = forceDirectionY * force;
             if (triggered) {
-                red -= COLOR_SPEED;
+                if (red > minColorIntensity) {
+                    red -= COLOR_SPEED;
+                }
                 //green -= COLOR_SPEED;
                 //blue -= COLOR_SPEED;
             } else {
