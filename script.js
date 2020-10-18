@@ -7,6 +7,7 @@ const NUMBER_OF_PARTICLES = 4000;
 const MOUSE_DISTANCE_MAX = 100;
 const PARTICLE_SIZE_LARGE = 5;
 const FRAME_RATE = 60;
+const RANDOM_MOVE_SPEED = 1;
 
 const particleArray = [];
 
@@ -20,7 +21,6 @@ const mouse = {
 window.addEventListener('mousemove', (event) => {
     mouse.x = event.x; 
     mouse.y = event.y;
-    console.log(mouse);
 });
 
 ctx.font = "30px Verdana";
@@ -36,6 +36,25 @@ const createParticle = (initialX, initialY) => {
     const baseY = initialY;
     const baseSize = size;
     let density = (Math.random() * 30) + 1;
+
+    const moveInARandomDirection = () => {
+        const randomDirectionIndex = Math.random() * 4;
+        const speed = RANDOM_MOVE_SPEED;
+        if (randomDirectionIndex > 3) {
+            x += speed;
+        } else if (randomDirectionIndex > 2) {
+            x -= speed;
+        } else if (randomDirectionIndex > 1) {
+            if (y > canvas.height) {
+                y -= speed * 10;
+            } else {
+                y += speed * 10;
+            }
+        } else if (randomDirectionIndex > 0) {
+            y -= speed;
+        }
+
+    }
     
     return {
         draw() {
@@ -46,6 +65,7 @@ const createParticle = (initialX, initialY) => {
             ctx.fill();
         },
         update() {
+            moveInARandomDirection(); 
             const dx = mouse.x - x;
             const dy = mouse.y - y;
             const distance = Math.sqrt(dx * dx + dy * dy);
@@ -56,9 +76,8 @@ const createParticle = (initialX, initialY) => {
             const speedX = forceDirectionX * force;
             const speedY = forceDirectionY * force;
             if (distance < maxDistance) {
-                x -= 1;
+                x += 1;
                 y += 1;
-                size += 1;
             } else {
                 if (y > baseY) {
                     y -= 1;
