@@ -8,7 +8,7 @@ const PARTICLE_SIZE_LARGE = 5;
 const FRAME_RATE = 60;
 const SIZE_SPEED = 1;
 const COLOR_SPEED = 1;
-const TRIGGERED_SIZE = 20;
+const TRIGGERED_SIZE = 10;
 
 const particleArray = [];
 
@@ -66,7 +66,6 @@ const createParticle = (initialX, initialY) => {
                 //green -= COLOR_SPEED;
                 //blue -= COLOR_SPEED;
             } else {
-                console.log('sfs');
                 if (distance < maxDistance) {
                     size += SIZE_SPEED;
                 } else {
