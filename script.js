@@ -2,12 +2,13 @@ const canvas = document.getElementById('canvas1');
 const ctx = canvas.getContext('2d'); canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
-const NUMBER_OF_PARTICLES = 4000;
-const MOUSE_DISTANCE_MAX = 100;
+const NUMBER_OF_PARTICLES = 500;
+const MOUSE_DISTANCE_MAX = 130;
 const PARTICLE_SIZE_LARGE = 5;
 const FRAME_RATE = 60;
 const SIZE_SPEED = 1;
 const COLOR_SPEED = 1;
+const TRIGGERED_SIZE = 20;
 
 const particleArray = [];
 
@@ -40,6 +41,7 @@ const createParticle = (initialX, initialY) => {
     let green = 255;
     let blue = 255;
     let density = (Math.random() * 30) + 1;
+    let triggered = false;
     
     return {
         draw() {
@@ -59,15 +61,21 @@ const createParticle = (initialX, initialY) => {
             const force = (maxDistance - distance) / maxDistance;
             const speedX = forceDirectionX * force;
             const speedY = forceDirectionY * force;
-            if (distance < maxDistance) {
-                size += SIZE_SPEED;
-            } else {
+            if (triggered) {
                 red -= COLOR_SPEED;
-                green -= COLOR_SPEED;
-                blue -= COLOR_SPEED;
-
-                if (size > baseSize) {
-                    size -= SIZE_SPEED * 0.2;
+                //green -= COLOR_SPEED;
+                //blue -= COLOR_SPEED;
+            } else {
+                console.log('sfs');
+                if (distance < maxDistance) {
+                    size += SIZE_SPEED;
+                } else {
+                    if (size > baseSize) {
+                        size -= SIZE_SPEED;
+                    }
+                } 
+                if (size > TRIGGERED_SIZE) {
+                    triggered = true;
                 }
             }
         }
