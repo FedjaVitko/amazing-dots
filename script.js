@@ -22,7 +22,6 @@ const mouse = {
 window.addEventListener('mousemove', (event) => {
     mouse.x = event.x; 
     mouse.y = event.y;
-    console.log(mouse);
 });
 
 ctx.font = "30px Verdana";
@@ -43,6 +42,7 @@ const createParticle = (initialX, initialY) => {
     let density = (Math.random() * 30) + 1;
     let triggered = false;
     let minColorIntensity = (Math.random() * 255) + 1;
+    let timeSpentHovering = 0;
     
     return {
         draw() {
@@ -62,15 +62,18 @@ const createParticle = (initialX, initialY) => {
             const force = (maxDistance - distance) / maxDistance;
             const speedX = forceDirectionX * force;
             const speedY = forceDirectionY * force;
+            if (distance < maxDistance) {
+                timeSpentHovering += 10;
+            }
             if (triggered) {
-                if (red > minColorIntensity) {
+                if (red < timeSpentHovering) {
                     red -= COLOR_SPEED;
                 }
                 //green -= COLOR_SPEED;
                 //blue -= COLOR_SPEED;
             } else {
                 if (distance < maxDistance) {
-                    size += SIZE_SPEED;
+                    size += SIZE_SPEED; 
                 } else {
                     if (size > baseSize) {
                         size -= SIZE_SPEED;
