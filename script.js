@@ -2,8 +2,8 @@ const canvas = document.getElementById('canvas1');
 const ctx = canvas.getContext('2d'); canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
-const NUMBER_OF_PARTICLES = 500;
-const MOUSE_DISTANCE_MAX = 130;
+const NUMBER_OF_PARTICLES = 5000;
+const MOUSE_DISTANCE_MAX = 70;
 const PARTICLE_SIZE_LARGE = 5;
 const FRAME_RATE = 60;
 const SIZE_SPEED = 1;
