@@ -7,6 +7,7 @@ const NUMBER_OF_PARTICLES = 4000;
 const MOUSE_DISTANCE_MAX = 100;
 const PARTICLE_SIZE_LARGE = 5;
 const FRAME_RATE = 60;
+const SIZE_SPEED = 1;
 
 const particleArray = [];
 
@@ -56,18 +57,10 @@ const createParticle = (initialX, initialY) => {
             const speedX = forceDirectionX * force;
             const speedY = forceDirectionY * force;
             if (distance < maxDistance) {
-                x -= 1;
-                y += 1;
-                size += 1;
+                size += SIZE_SPEED;
             } else {
-                if (y > baseY) {
-                    y -= 1;
-                }
-                if (x < baseX) {
-                    x += 1;
-                }
                 if (size > baseSize) {
-                    size -= 1;
+                    size -= SIZE_SPEED * 0.2;
                 }
                 //x += speedX;
                 //y += speedY;
