@@ -43,6 +43,7 @@ const createParticle = (initialX, initialY) => {
     let triggered = false;
     let minColorIntensity = (Math.random() * 255) + 1;
     let timeSpentHovering = 0;
+    let maxDistance = mouse.radius;
     
     return {
         draw() {
@@ -58,15 +59,15 @@ const createParticle = (initialX, initialY) => {
             const distance = Math.sqrt(dx * dx + dy * dy);
             const forceDirectionX = dx / distance;
             const forceDirectionY = dy / distance;
-            const maxDistance = mouse.radius;
             const force = (maxDistance - distance) / maxDistance;
             const speedX = forceDirectionX * force;
             const speedY = forceDirectionY * force;
             if (distance < maxDistance) {
                 timeSpentHovering += 10;
+                maxDistance--;
             }
             if (triggered) {
-                if (red < timeSpentHovering) {
+                if (red > timeSpentHovering) {
                     red -= COLOR_SPEED;
                 }
                 //green -= COLOR_SPEED;
